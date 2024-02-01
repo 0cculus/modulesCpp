@@ -14,7 +14,7 @@ class Weapon
 		Weapon& operator=(const Weapon& copy);
 		~Weapon();
 
-		std::string getType() const;
+		const std::string& getType() const;
 		void setType(std::string newType);
 };
 

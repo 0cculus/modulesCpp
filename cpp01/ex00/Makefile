@@ -17,6 +17,9 @@ all: $(NAME)
 $(NAME): $(OBJS)
 		$(CC) $(CFLAG) $(OBJS) -o $(NAME)
 
+$(OBJS): $(SRCS)
+	$(CC) $(CFLAG) -c $(SRCS)
+
 clean:
 		@rm -f $(OBJS)
 			@echo clean $(OBJS)

@@ -9,16 +9,16 @@ class HumanA
 {
 	private:
 		std::string name;
-		Weapon wpn;
+		Weapon& wpn;
 	public:
-		HumanA(std::string name, Weapon newWpn);
+		HumanA(std::string name, Weapon& newWpn);
 		HumanA(const HumanA& copy);
 		HumanA& operator=(const HumanA& copy);
 		~HumanA();
 
-		Weapon getWeapon() const;
-		std::string getName() const;
-		void setWeapon(Weapon newWpn);
+		const Weapon& getWeapon() const;
+		const std::string& getName() const;
+		void setWeapon(Weapon& newWpn);
 		void setName(std::string newName);
 		void attack();
 };

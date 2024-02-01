@@ -1,21 +1,19 @@
 #include "HumanA.hpp"
 
-HumanA::HumanA(std::string newName, Weapon newWpn)
+HumanA::HumanA(std::string newName, Weapon& newWpn) : wpn(newWpn)
 {
-	this->wpn = newWpn;
 	this->name = newName;
 }
 
-HumanA::HumanA(const HumanA& copy)
+HumanA::HumanA(const HumanA& copy) : wpn(copy.wpn)
 {
-	this->setWeapon(copy.getWeapon());
 	this->setName(copy.getName());
 	(*this) = copy;
 }
 
 HumanA& HumanA::operator=(const HumanA& copy)
 {
-	this->setWeapon(copy.getWeapon());
+	this->wpn = copy.wpn;
 	this->setName(copy.getName());
 	return (*this);
 }
@@ -24,17 +22,17 @@ HumanA::~HumanA()
 {
 }
 
-Weapon HumanA::getWeapon() const
+const Weapon& HumanA::getWeapon() const
 {
 	return (this->wpn);
 }
 
-std::string HumanA::getName() const
+const std::string& HumanA::getName() const
 {
 	return (this->name);
 }
 
-void HumanA::setWeapon(Weapon newWpn)
+void HumanA::setWeapon(Weapon& newWpn)
 {
 	this->wpn = newWpn;
 }

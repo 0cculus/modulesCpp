@@ -13,6 +13,7 @@ Zombie::Zombie(const Zombie& copy)
 
 Zombie::~Zombie(void)
 {
+	std::cout << this->getName() << std::endl;
 }
 
 void Zombie::announce(void)
