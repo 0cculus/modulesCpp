@@ -14,9 +14,9 @@ std::string sed(std::string src, std::string search, std::string replace)
 		if (current != std::string::npos)
 		{
 			src.erase(current, search.length());
-			src.insert(current, replace, replace.length());
+			src.insert(current, replace.c_str(), replace.length());
 		}
-		i += search.length();
+		i += (current + replace.length());
 	}
 
 	return (src);
