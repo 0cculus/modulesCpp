@@ -5,7 +5,7 @@
 
 int main()
 {
-	int max = 12;
+	/*int max = 12;
 	Animal* zoo[max];
 
 	for (int i = 0; i < max; i++)
@@ -19,7 +19,7 @@ int main()
 		zoo[i]->makeSound();
 
 	for (int i = 0; i < max; i++)
-		delete zoo[i];
+		delete zoo[i];*/
 
 	Cat kitton = Cat("kitton");
 	Cat katzen = Cat("katzen");
@@ -31,6 +31,7 @@ int main()
 		kitton.getBrain()->setIdea(oss.str());
 	}
 	katzen = kitton;
+	Cat minou = Cat(kitton);
 
 	for (int i = MAX_IDEAS / 2; i < MAX_IDEAS; i++)
 	{
