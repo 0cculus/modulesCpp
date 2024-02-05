@@ -22,16 +22,14 @@ Cat& Cat::operator=(const Cat& copy)
 {
 	std::cout << "Cat assignment operator called" << std::endl;
 	this->setType(copy.getType());
-	this->brain = new Brain(*copy.brain);
+	*this->brain = *copy.brain;
 	return (*this);
 }
 
 Cat::~Cat()
 {
 	std::cout << "Cat destructor called" << std::endl;
-	if (this->brain)
-		delete this->brain;
-	this->brain = NULL;
+	delete this->brain;
 }
 
 void Cat::makeSound()

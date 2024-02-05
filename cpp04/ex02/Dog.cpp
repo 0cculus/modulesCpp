@@ -15,14 +15,14 @@ Dog::Dog(std::string newType) : Animal(newType)
 Dog::Dog(const Dog& copy) : Animal(copy)
 {
 	std::cout << "Dog copy constructor called" << std::endl;
-	this->brain = copy.brain;
+	this->brain = new Brain(*copy.brain);
 }
 
 Dog& Dog::operator=(const Dog& copy)
 {
 	std::cout << "Dog assignment operator called" << std::endl;
 	this->setType(copy.getType());
-	this->brain = copy.brain;
+	*this->brain = *copy.brain;
 	return (*this);
 }
 
