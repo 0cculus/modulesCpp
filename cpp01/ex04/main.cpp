@@ -16,10 +16,17 @@ std::string sed(std::string src, std::string search, std::string replace)
 			src.erase(current, search.length());
 			src.insert(current, replace.c_str(), replace.length());
 		}
-		i += (current + replace.length());
+		i += replace.length();
 	}
 
 	return (src);
+}
+
+bool checkArgs(std::string search, std::string replace)
+{
+	if (search.empty() || replace.empty())
+		return (true);
+	return (false);
 }
 
 int main(int ac, char** av)
@@ -38,6 +45,11 @@ int main(int ac, char** av)
 			return (1);
 		}
 
+		if (checkArgs(av[2], av[3]))
+		{
+			std::cout << "empty args" << std::endl;
+			return (1);
+		}
 		std::string current;
 		std::string res;
 		while (getline(in, current))
@@ -46,7 +58,7 @@ int main(int ac, char** av)
 			if (current.empty())
 				out << std::endl;
 			else
-				out << res;
+				out << res << std::endl;
 		}
 		in.close();
 		out.close();
