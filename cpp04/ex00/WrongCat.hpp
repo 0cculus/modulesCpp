@@ -15,7 +15,7 @@ class WrongCat : public WrongAnimal
 		WrongCat& operator=(const WrongCat& copy);
 		~WrongCat();
 
-		virtual void makeSound();
+		void makeSound();
 };
 
 #endif
