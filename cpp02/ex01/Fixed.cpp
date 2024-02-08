@@ -55,7 +55,7 @@ float Fixed::toFloat(void) const
 
 int Fixed::toInt(void) const
 {
-	return ((rawVal ^ bitLength) << bitLength);
+	return ((rawVal ^ bitLength) >> bitLength);
 }
 
 std::ostream& operator<<(std::ostream& ostm, const Fixed& ref)
