@@ -96,22 +96,30 @@ bool Fixed::operator>(const Fixed& src)
 
 Fixed Fixed::operator+(const Fixed& src)
 {
-	return (Fixed(this->getRawBits() + src.getRawBits()));
+	Fixed res;
+	res.setRawBits(this->getRawBits() + src.getRawBits());
+	return (res);
 }
 
 Fixed Fixed::operator-(const Fixed& src)
 {
-	return (Fixed(this->getRawBits() - src.getRawBits()));
+	Fixed res;
+	res.setRawBits(this->getRawBits() - src.getRawBits());
+	return (res);
 }
 
 Fixed Fixed::operator/(const Fixed& src)
 {
-	return (Fixed((this->getRawBits() << this->bitLength) / src.getRawBits()));
+	Fixed res;
+	res.setRawBits((this->getRawBits() << this->bitLength) / src.getRawBits());
+	return (res);
 }
 
 Fixed Fixed::operator*(const Fixed& src)
 {
-	return (Fixed(this->getRawBits() * src.getRawBits() >> this->bitLength));
+	Fixed res;
+	res.setRawBits(this->getRawBits() * src.getRawBits() >> this->bitLength);
+	return (res);
 }
 
 Fixed& Fixed::operator++(void)
@@ -129,14 +137,14 @@ Fixed& Fixed::operator--(void)
 Fixed Fixed::operator++(int)
 {
 	Fixed res = *this;
-	(*this)++;
+	++(*this);
 	return (res);
 }
 
 Fixed Fixed::operator--(int)
 {
 	Fixed res = *this;
-	(*this)--;
+	--(*this);
 	return (res);
 }
 
