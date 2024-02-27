@@ -8,7 +8,7 @@ class Bureaucrat;
 
 class AForm
 {
-	priavte:
+	private:
 		bool isSigned;
 		const std::string name;
 		const unsigned int gradeToSign;
@@ -24,7 +24,7 @@ class AForm
 		unsigned int getGradeToSign() const;
 		unsigned int getGradeToExecute() const;
 		void beSigned(Bureaucrat& bc);
-		virtual void execute(Bureaucrat& const executor) const = 0;
+		virtual void execute(Bureaucrat const& executor) const = 0;
 
 		class GradeTooHighException : public std::exception
 		{

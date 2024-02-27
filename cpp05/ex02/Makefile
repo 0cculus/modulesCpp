@@ -5,8 +5,11 @@ CC = c++
 CFLAG =  -std=c++98 -Wall -Werror -Wextra -g
 
 SRCS =	main.cpp \
-		Form.cpp \
-		Bureaucrat.cpp
+		PresidentialPardonForm.cpp \
+		ShrubberyCreationForm.cpp \
+		RobotomyRequestForm.cpp \
+		Bureaucrat.cpp \
+		AForm.cpp
 
 OBJS	=	$(SRCS:.cpp=.o)
 
@@ -26,6 +29,9 @@ clean:
 fclean: clean
 		@rm -f $(NAME)
 			@echo clean $(NAME)
+
+cleanf:
+	@rm -f *_shrubbery.form
 
 re: fclean all
 
