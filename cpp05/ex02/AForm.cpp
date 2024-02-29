@@ -53,7 +53,7 @@ unsigned int AForm::getGradeToExecute() const
 
 std::ostream& operator<<(std::ostream& ostm, const AForm& ref)
 {
-	ostm << "Form: " << ref.getName();
+	ostm << "Form: " << ref.getName() << ", Grade to execute: " << ref.getGradeToExecute() << ", Grade to sign: " << ref.getGradeToSign() << ", Signed: " << ref.getIsSigned();
 	return (ostm);
 }
 

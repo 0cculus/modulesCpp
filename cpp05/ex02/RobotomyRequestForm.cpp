@@ -27,10 +27,10 @@ std::string RobotomyRequestForm::getTarget() const
 
 void RobotomyRequestForm::execute(Bureaucrat const& executor) const
 {
-	if (this->getGradeToExecute() < executor.getGrade())
-		throw AForm::GradeTooHighException();
 	if (!this->getIsSigned())
 		throw std::invalid_argument("Current Robotomy Form is not signed\n");
+	if (this->getGradeToExecute() < executor.getGrade())
+		throw AForm::GradeTooHighException();
 
 	std::srand(std::time(nullptr));
 	if (std::rand() % 2)

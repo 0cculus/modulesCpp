@@ -27,10 +27,10 @@ std::string ShrubberyCreationForm::getTarget() const
 
 void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 {
-	if (this->getGradeToExecute() < executor.getGrade())
-		throw AForm::GradeTooHighException();
 	if (!this->getIsSigned())
 		throw std::invalid_argument("Current Shrubbery Form is not signed\n");
+	if (this->getGradeToExecute() < executor.getGrade())
+		throw AForm::GradeTooHighException();
 
 	std::fstream art("ascii.txt", std::fstream::in);
 	std::string filename = this->getTarget();

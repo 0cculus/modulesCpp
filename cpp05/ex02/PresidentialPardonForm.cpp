@@ -27,10 +27,10 @@ std::string PresidentialPardonForm::getTarget() const
 
 void PresidentialPardonForm::execute(Bureaucrat const& executor) const
 {
-	if (this->getGradeToExecute() < executor.getGrade())
-		throw AForm::GradeTooHighException();
 	if (!this->getIsSigned())
 		throw std::invalid_argument("Current Presidential Form is not signed\n");
+	if (this->getGradeToExecute() < executor.getGrade())
+		throw AForm::GradeTooHighException();
 
 	std::cout << "Greetings members of this nation! I am proud to inform you that " << this->getTarget() << " has been pardonned by our greatest president Zaphod Beeblebrox!" << std::endl;
 }

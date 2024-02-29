@@ -1,4 +1,4 @@
-NAME = form
+NAME = 12travaux
 
 CC = c++
 
@@ -32,6 +32,7 @@ fclean: clean
 
 cleanf:
 	@rm -f *_shrubbery.form
+		@echo "removed shrubbery forms"
 
 re: fclean all
 
