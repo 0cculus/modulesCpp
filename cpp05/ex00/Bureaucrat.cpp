@@ -1,12 +1,11 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat()
+Bureaucrat::Bureaucrat(): name(""), grade(150)
 {
 }
 
-Bureaucrat::Bureaucrat(std::string newName, unsigned int newGrade)
+Bureaucrat::Bureaucrat(std::string newName, unsigned int newGrade) : name(newName)
 {
-	this->name = newName;	
 	if (newGrade < 1)
 		throw GradeTooHighException();
 	if (newGrade > 150)
@@ -14,16 +13,14 @@ Bureaucrat::Bureaucrat(std::string newName, unsigned int newGrade)
 	this->grade = newGrade;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& copy)
+Bureaucrat::Bureaucrat(const Bureaucrat& copy): name(copy.name)
 {
-	this->name = copy.name;	
 	this->grade = copy.grade;
 	(*this) = copy;
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& copy)
 {
-	this->name = copy.name;
 	this->grade = copy.grade;
 	return (*this);
 }
@@ -39,11 +36,6 @@ void Bureaucrat::setGrade(unsigned int newGrade)
 	if (newGrade > 150)
 		throw GradeTooLowException();
 	this->grade = newGrade;
-}
-
-void Bureaucrat::setName(std::string newName)
-{
-	this->name = newName;
 }
 
 unsigned int Bureaucrat::getGrade() const
