@@ -67,7 +67,10 @@ void Bureaucrat::signForm(Form& form)
 	if (form.getGradeToExecute() < this->grade)
 		std::cout << this-> name << " couldn't sign " << form.getName() << " because the form's rank is too high" << std::endl;
 	else
+	{
 		std::cout << this-> name << " signed " << form.getName() << std::endl;
+		form.beSigned(*this);
+	}
 
 }
 
