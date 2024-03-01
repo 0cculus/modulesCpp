@@ -15,7 +15,6 @@ Bureaucrat::Bureaucrat(std::string newName, unsigned int newGrade) : name(newNam
 
 Bureaucrat::Bureaucrat(const Bureaucrat& copy) : name(copy.name)
 {
-	this->grade = copy.grade;
 	(*this) = copy;
 }
 
