@@ -6,20 +6,33 @@ PmergeMe::PmergeMe()
 
 PmergeMe::PmergeMe(const PmergeMe& copy)
 {
+	(*this) = copy;
 }
 
 PmergeMe& PmergeMe::operator=(const PmergeMe& copy)
 {
+	(void)copy;
+	return (*this);
 }
 
 PmergeMe::~PmergeMe()
 {
 }
 
-void sorting(std::string type)
+std::vector<int>& PmergeMe::getVc()
 {
-	if (type == "ls")
-		mergeinsertsort(this->ls, 0, this->ls.size() - 1);
+	return (this->vc);
+}
+
+std::deque<int>& PmergeMe::getDq()
+{
+	return (this->dq);
+}
+
+void PmergeMe::sorting(std::string type)
+{
+	if (type == "vc")
+		sort(this->vc, 0, this->vc.size() - 1, this->vc.size() / 2);
 	else if (type == "dq")
-		mergeinsertsort(this->dq, 0, this->dq.size() - 1);
+		sort(this->dq, 0, this->dq.size() - 1, this->dq.size() / 2);
 }

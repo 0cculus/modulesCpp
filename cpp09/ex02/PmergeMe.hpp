@@ -1,6 +1,10 @@
 #ifndef MERGEINSERT_HPP_
 # define MERGEINSERT_HPP_
 
+# include <vector>
+# include <deque>
+# include <string>
+
 template <typename T>
 void insert(T& arr, int start, int range)
 {
@@ -25,7 +29,7 @@ void merge(T& arr, int start, int range, int end)
 	int size2 = end - range;
 	T leftArr(arr.begin() + start, arr.begin() + range + 1);
 	T rightArr(arr.begin() + range + 1, arr.begin() + end + 1);
-	int leftIndex, rightIndex = 0;
+	int leftIndex = 0, rightIndex = 0;
 
 	for (int i = start; i <= end; i++)
 	{
@@ -41,13 +45,13 @@ void merge(T& arr, int start, int range, int end)
 }
 
 template <typename T>
-void mergeinsertsort(T& arr, int start, int end, const int K)
+void sort(T& arr, int start, int end, const int K)
 {
 	if (end - start > K)
 	{
 		int range = (start + end) / 2;
-		mergeinsertsort(arr, start, range, K);
-		mergeinsertsort(arr, range + 1, end, K);
+		sort(arr, start, range, K);
+		sort(arr, range + 1, end, K);
 		merge(arr, start, range, end);
 	}
 	else
@@ -57,16 +61,18 @@ void mergeinsertsort(T& arr, int start, int end, const int K)
 class PmergeMe
 {
 	private:
-		list<int> ls;
-		deque<int> dq;
+		std::vector<int> vc;
+		std::deque<int> dq;
 	public:
 		PmergeMe();
 		PmergeMe(const PmergeMe& copy);
-		PmergeMe& operator=();
+		PmergeMe& operator=(const PmergeMe& copy);
 		~PmergeMe();
 
-		template <typename T>
-		void sorting(T );
-}
+		std::vector<int>& getVc();
+		std::deque<int>& getDq();
+
+		void sorting(std::string type);
+};
 
 #endif
