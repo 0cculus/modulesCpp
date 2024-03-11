@@ -11,6 +11,7 @@ class Converter
 		char c;
 		float f;
 		double d;
+		bool special;
 	public:
 		Converter();
 		Converter(const Converter& copy);
@@ -18,10 +19,10 @@ class Converter
 		~Converter();
 
 		void convert(std::string src);
-		void convertFromDouble(double src);
-		void convertFromFloat(float src);
-		void convertFromChar(char src);
-		void convertFromInt(int src);
+		void convertDouble(double src);
+		void convertFloat(float src);
+		void convertChar(char src);
+		void convertInt(int src);
 
 		double getDouble();
 		float getFloat();

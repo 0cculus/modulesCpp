@@ -2,9 +2,9 @@
 # include <iostream>
 # include <string>
 
-bool isAlpha(char src)
+bool isAscii(char src)
 {
-	if (src >= 'a' && src <= 'z')
+	if (src >= 0 && src <= 127)
 		return (true);
 	return (false);
 }
@@ -21,9 +21,9 @@ std::string checkArg(std::string arg)
 	std::string type;
 
 	if (arg == "nanf" || arg == "+inff" || arg == "-inff")
-		type = "float";
+		type = "sfloat";
 	else if (arg == "nan" || arg == "+inf" || arg == "-inf")
-		type = "double";
+		type = "sdouble";
 	else if (arg.length() > 1)
 	{
 		for (size_t i = 0; i < arg.length(); i++)
@@ -32,22 +32,19 @@ std::string checkArg(std::string arg)
 				if (arg[i] != '.' && arg[i] != 'f' && arg[i] != '-')
 					throw std::invalid_argument("Bad input");
 		}
-		if (arg.find(".") != std::string::npos)
-		{
-			if (arg.find("f") != std::string::npos)
-				type = "float";
-			else
+		if (arg.find("f") != std::string::npos)
+			type = "float";
+		else if (arg.find(".") != std::string::npos)
 				type = "double";
-		}
 		else
 			type = "int";
 	}
 	else if (arg.length() == 1)
 	{
-		if (isAlpha(arg[0]))
-			type = "char";
-		else if (isNum(arg[0]))
+		if (isNum(arg[0]))
 			type = "int";
+		else if (isAscii(arg[0]))
+			type = "char";
 	}
 	else 
 		throw std::invalid_argument("Bad input");
