@@ -1,8 +1,9 @@
 //#include "Converter.hpp"
 # include <iostream>
 # include <string>
+# include <cmath>
 
-bool isAscii(char src)
+bool isAscii(int src)
 {
 	if (src >= 0 && src <= 127)
 		return (true);
@@ -62,7 +63,9 @@ int main(int ac, char** av)
 			{
 				std::string type = checkArg(input);
 				std::cout << type << std::endl;
-				//convert(input);
+				double d = atof("nan");
+				std::cout << d << std::endl;
+				convert(type, input);
 			}
 			catch (std::exception& e)
 			{

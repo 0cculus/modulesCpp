@@ -18,11 +18,11 @@ class Converter
 		Converter& operator=(const Converter& copy);
 		~Converter();
 
-		void convert(std::string src);
-		void convertDouble(double src);
-		void convertFloat(float src);
-		void convertChar(char src);
-		void convertInt(int src);
+		void convert(std::string type, std::string src);
+		void convertDouble(std::string type);
+		void convertFloat(std::string type);
+		void convertChar(std::string type);
+		void convertInt(std::string type);
 
 		double getDouble();
 		float getFloat();
