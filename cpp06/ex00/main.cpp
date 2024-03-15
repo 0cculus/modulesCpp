@@ -1,4 +1,4 @@
-//#include "Converter.hpp"
+#include "Converter.hpp"
 # include <iostream>
 # include <string>
 # include <cmath>
@@ -61,11 +61,10 @@ int main(int ac, char** av)
 		{
 			try
 			{
+				Converter c;
 				std::string type = checkArg(input);
 				std::cout << type << std::endl;
-				double d = atof("nan");
-				std::cout << d << std::endl;
-				convert(type, input);
+				c.convert(type, input);
 			}
 			catch (std::exception& e)
 			{

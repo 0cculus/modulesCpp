@@ -3,6 +3,8 @@
 
 # include <iostream>
 # include <string>
+# include <cmath>
+# include <math.h>
 
 class Converter
 {
@@ -24,8 +26,9 @@ class Converter
 		void convertChar(std::string type);
 		void convertInt(std::string type);
 
-		double getDouble();
-		float getFloat();
-		char getChar();
-		int getInt();
+		double getDouble() const;
+		float getFloat() const;
+		char getChar() const;
+		int getInt() const;
 };
+#endif

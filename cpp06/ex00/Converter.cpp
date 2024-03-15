@@ -1,15 +1,15 @@
 #include "Converter.hpp"
 
-Converter() : i(0), c(0), f(0.0f), d(0.0), special(false)
+Converter::Converter() : i(0), c(0), f(0.0f), d(0.0), special(false)
 {
 }
 
-Converter(const Converter& copy)
+Converter::Converter(const Converter& copy)
 {
 	(*this) = copy;
 }
 
-Converter& operator=(const Converter& copy)
+Converter& Converter::operator=(const Converter& copy)
 {
 	this->d = copy.getDouble();
 	this->f = copy.getFloat();
@@ -18,29 +18,41 @@ Converter& operator=(const Converter& copy)
 	return (*this);
 }
 
-~Converter()
+Converter::~Converter()
 {
 }
 
-void convert(std::string type, std::string src)
+void Converter::convert(std::string type, std::string src)
 {
-	if (src == "int")
-		this->i = atoi(src);
-	else if (src == "char")
-		this->c = static_cast<char>(src);
-	else if (src == "float")
-		this->f = atof(src);
-	else if (src == "double")
-		this->d = static_cast<double>(atof(src));
-	else if (src == "sfloat")
+	if (type == "int")
 	{
-		this->special = true;
-		this->f = atof(src);
+		this->i = atoi(src.c_str());
+		std::cout << this->i << std::endl;
 	}
-	else if (src == "sdouble")
+	else if (type == "char")
+	{
+		this->c = static_cast<char>(src[0]);
+		std::cout << this->c << std::endl;
+	}
+	else if (type == "float")
+	{
+		this->f = atof(src.c_str());
+		std::cout << this->f << std::endl;
+	}
+	else if (type == "double")
+	{
+		this->d = static_cast<double>(atof(src.c_str()));
+		std::cout << this->d << std::endl;
+	}
+	else if (type == "sfloat")
 	{
 		this->special = true;
-		this->d = static_cast<double>(atof(src));
+		this->f = atof(src.c_str());
+	}
+	else if (type == "sdouble")
+	{
+		this->special = true;
+		this->d = static_cast<double>(atof(src.c_str()));
 	}
 	convertChar(type);
 	convertInt(type);
@@ -48,8 +60,10 @@ void convert(std::string type, std::string src)
 	convertDouble(type);
 }
 
-void convertDouble(std::string type)
+void Converter::convertDouble(std::string type)
 {
+	std::cout.setf(std::ios::fixed, std::ios::floatfield);
+	std::cout.precision(1);
 	if (type == "int")
 		 std::cout << "double: " << static_cast<double>(this->i) << std::endl;
 	else if (type == "char")
@@ -60,25 +74,27 @@ void convertDouble(std::string type)
 		std::cout << "double: " << this->d << std::endl;
 }
 
-void convertFloat(std::string type)
+void Converter::convertFloat(std::string type)
 {
+	std::cout.setf(std::ios::fixed, std::ios::floatfield);
+	std::cout.precision(1);
 	if (type == "char")
-		std::cout << "float: " << static_cast<float>this->c << std::endl;
+		std::cout << "float: " << static_cast<float>(this->c) << "f" << std::endl;
 	else if (type == "int")
-		std::cout << "float: " << static_cast<float>this->i << std::endl;
+		std::cout << "float: " << static_cast<float>(this->i) << "f" << std::endl;
 	else if (type == "double")
-		std::cout << "float: " << static_cast<float>this->d << std::endl;
+		std::cout << "float: " << static_cast<float>(this->d) << "f" << std::endl;
 	else if (type == "sdouble" && this->special)
-		std::cout << "float: " << static_cast<float>this->d << std::endl;
+		std::cout << "float: " << static_cast<float>(this->d) << "f" << std::endl;
 	else if (type == "float" || type == "sfloat")
-		std::cout << "float: " << this->f << std::endl;
+		std::cout << "float: " << this->f << "f" << std::endl;
 }
 
-void convertChar(std::string type)
+void Converter::convertChar(std::string type)
 {
 	if (type == "int")
 	{
-		if (std::isascii(this->i))
+		if (isprint(this->i))
 			std::cout << "char: " << static_cast<char>(this->i) << std::endl;
 		else
 			std::cout << "char: N/A" << std::endl;
@@ -88,7 +104,7 @@ void convertChar(std::string type)
 		if (this->f >= (float)INT_MIN && this->f >= (float)INT_MAX)
 		{
 			int converted = static_cast<int>(this->f);
-			if (std::isascii(converted))
+			if (isascii(converted))
 				std::cout << "char: " << converted << std::endl;
 		}
 		else
@@ -99,7 +115,7 @@ void convertChar(std::string type)
 		if (this->d >= (double)INT_MIN && this->d >= (double)INT_MAX)
 		{
 			int converted = static_cast<int>(this->d);
-			if (std::isascii(converted))
+			if (isascii(converted))
 				std::cout << "char: " << converted << std::endl;
 		}
 		else
@@ -107,11 +123,11 @@ void convertChar(std::string type)
 	}
 	else if (type == "sdouble" || type == "sfloat")
 			std::cout << "char: N/A" << std::endl;
-	else if (type = "char")
+	else if (type == "char")
 		std::cout << "char: " << this->c << std::endl;
 }
 
-void convertInt(std::string type)
+void Converter::convertInt(std::string type)
 {
 	if (type == "float")
 	{
@@ -135,22 +151,22 @@ void convertInt(std::string type)
 		std::cout << "int: " << this->i << std::endl;
 }
 
-double getDouble()
+double Converter::getDouble() const
 {
 	return (this->d);
 }
 
-float getFloat()
+float Converter::getFloat() const
 {
 	return (this->f);
 }
 
-char getChar()
+char Converter::getChar() const
 {
 	return (this->c);
 }
 
-int getInt()
+int Converter::getInt() const
 {
 	return (this->i);
 }
