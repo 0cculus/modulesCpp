@@ -12,8 +12,8 @@ bool validDateFormat(std::string src, size_t end)
 			return (false);
 	}
 	std::map<int, int> dayPerMonth;
-	int month = std::stoi(src.substr(YEAR_MONTH_SEPERATOR, YEAR_MONTH_SEPERATOR - MONTH_DAY_SEPERATOR));
-	int day = std::stoi(src.substr(MONTH_DAY_SEPERATOR, MONTH_DAY_SEPERATOR - src.length()));
+	int month = std::stoi(src.substr(YEAR_MONTH_SEPERATOR + 1, YEAR_MONTH_SEPERATOR - MONTH_DAY_SEPERATOR));
+	int day = std::stoi(src.substr(MONTH_DAY_SEPERATOR + 1, MONTH_DAY_SEPERATOR - src.length()));
 	int year = std::stoi(src.substr(0, YEAR_MONTH_SEPERATOR)); 
 	dayPerMonth[1] = 31;
 	if (year % 4)
@@ -35,9 +35,17 @@ bool validDateFormat(std::string src, size_t end)
 	return (true);
 }
 
-void parseInput(std::string src, std::list<std::string> list)
+bool isAllNumbers(std::string src)
 {
-	float res;
+	for (size_t i = 0; i < src.length(); i++)
+		if (!isdigit(src[i]))
+			return (false);
+	return (true);
+}
+
+void parseInput(std::string src, std::list<std::string>& list)
+{
+	float res = 0.0f;
 	size_t pos = src.find('|');
 
 	if (pos != std::string::npos)
@@ -46,28 +54,37 @@ void parseInput(std::string src, std::list<std::string> list)
 		{
 			if (pos != src.length() - 1)
 			{
-				res = static_cast<float>(std::stod(src.c_str() + pos + 1));
+				if (isAllNumbers(src.c_str() + pos + 1))
+					list.push_back("Error: invalid number");
+				else
+					res = static_cast<float>(std::stod(src.c_str() + pos + 1));
 				if (res < 0.0f || res > 1000.0f)
-					throw std::invalid_argument("invalid amount of coins");
+				{
+					list.push_back("Error: invalid amount of coins");
+					return ;
+				}
 				if (!validDateFormat(src, pos - 1))
-					throw std::invalid_argument("invalid date format");
+				{
+					list.push_back("Error: invalid date format");
+					return ;
+				}
 				list.push_back(src);
 			}
 		}
 	}
 	else
-		throw std::invalid_argument("invalid input syntax\ncorrect syntax:\"YYYY-MM-DD | [0-1000]\"");
+		list.push_back("Error: invalid input syntax\ncorrect syntax:\"YYYY-MM-DD | [0-1000]\"");
 }
 
 int main(int ac, char** av)
 {
 	if (ac == 2)
 	{
-		std::list<std::string> list;
-
 		std::string line;
-		std::fstream data("./data.csv", std::ios::in);
 		BitcoinExchange bex;
+		std::list<std::string> list;
+		std::fstream data("./data.csv", std::ios::in);
+
 		if (data.fail())
 		{
 			std::cout << "no data given" << std::endl;
@@ -75,21 +92,21 @@ int main(int ac, char** av)
 		}
 		while (std::getline(data, line))
 			bex.insertValue(line);
-		//std::cout << line << std::endl;
+
 		std::fstream request(av[1], std::ios::in);
-		try
+		
+		if (request.fail())
 		{
-			while (std::getline(request, line))
-				parseInput(line, list);
-			while (!list.empty())
-			{
-				bex.btcValueFromInput(list.front());
-				list.pop_front();
-			}
+			std::cout << "no input given" << std::endl;
+			return (1);
 		}
-		catch (std::exception& e)
+		while (std::getline(request, line))
+			parseInput(line, list);
+		std::cout << list.empty() << std::endl;
+		while (!list.empty())
 		{
-			std::cout << e.what() << std::endl;
+			bex.btcValueFromInput(list.front());
+			list.pop_front();
 		}
 	}
 	else 
