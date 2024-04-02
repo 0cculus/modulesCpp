@@ -23,7 +23,7 @@ class BitcoinExchange
 		~BitcoinExchange();
 		
 		void insertValue(std::string src);
-		float btcValueAtDate();
+		void btcValueFromInput(std::string src);
 };
 
 #endif

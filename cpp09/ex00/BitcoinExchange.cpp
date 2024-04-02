@@ -30,8 +30,13 @@ void BitcoinExchange::insertValue(std::string src)
 	this->map.insert(std::pair<std::string, float>(date, value));
 }
 
-float BitcoinExchange::btcValueAtDate()
+void BitcoinExchange::btcValueFromInput(std::string src)
 {
-	float value = 0.0f;
-	return (value);
+	size_t pos = src.find('|');
+	std::string date = src.substr(0, pos - 1);
+	float amount = static_cast<float>(std::stod(src.substr(pos + 1, src.length() - pos + 1)));
+
+	std::map<std::string, float>::iterator value;
+	value = this->map.lower_bound(date);
+	std::cout << date << " => " << amount << " = " << (value->second * amount) << std::endl;
 }

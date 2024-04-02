@@ -35,17 +35,24 @@ bool validDateFormat(std::string src, size_t end)
 	return (true);
 }
 
-void parseInput(std::string src)
+void parseInput(std::string src, std::list<std::string> list)
 {
+	float res;
 	size_t pos = src.find('|');
+
 	if (pos != std::string::npos)
 	{
 		if (pos == DATE_VALUE_SEPERATOR)
 		{
 			if (pos != src.length() - 1)
-				(void)static_cast<float>(std::stod(src.c_str() + pos + 1));
-			if (!validDateFormat(src, pos - 1))
-				throw std::invalid_argument("invalid date format");
+			{
+				res = static_cast<float>(std::stod(src.c_str() + pos + 1));
+				if (res < 0.0f || res > 1000.0f)
+					throw std::invalid_argument("invalid amount of coins");
+				if (!validDateFormat(src, pos - 1))
+					throw std::invalid_argument("invalid date format");
+				list.push_back(src);
+			}
 		}
 	}
 	else
@@ -56,23 +63,29 @@ int main(int ac, char** av)
 {
 	if (ac == 2)
 	{
-		//std::list<std::string> list;
+		std::list<std::string> list;
 
 		std::string line;
 		std::fstream data("./data.csv", std::ios::in);
-		BitcoinExchange btc;
+		BitcoinExchange bex;
 		if (data.fail())
 		{
 			std::cout << "no data given" << std::endl;
 			return (1);
 		}
 		while (std::getline(data, line))
-			std::cout << line << std::endl;
+			bex.insertValue(line);
+		//std::cout << line << std::endl;
 		std::fstream request(av[1], std::ios::in);
 		try
 		{
 			while (std::getline(request, line))
-				parseInput(line);
+				parseInput(line, list);
+			while (!list.empty())
+			{
+				bex.btcValueFromInput(list.front());
+				list.pop_front();
+			}
 		}
 		catch (std::exception& e)
 		{
