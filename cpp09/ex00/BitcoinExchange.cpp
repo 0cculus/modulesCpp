@@ -36,7 +36,14 @@ void BitcoinExchange::btcValueFromInput(std::string src)
 {
 	if (src.find("Error:") == std::string::npos)
 	{
-		if (std::stoi(src.substr(0, YEAR_MONTH_SEPERATOR)) < std::stoi(this->map.begin()->first.substr(0, YEAR_MONTH_SEPERATOR)))
+		int beginMonth = std::stoi(this->map.begin()->first.substr(YEAR_MONTH_SEPERATOR + 1, YEAR_MONTH_SEPERATOR - MONTH_DAY_SEPERATOR));
+		int srcMonth = std::stoi(src.substr(YEAR_MONTH_SEPERATOR + 1, YEAR_MONTH_SEPERATOR - MONTH_DAY_SEPERATOR));
+		int beginDay = std::stoi(this->map.begin()->first.substr(MONTH_DAY_SEPERATOR + 1, MONTH_DAY_SEPERATOR - src.length()));
+		int srcDay = std::stoi(src.substr(MONTH_DAY_SEPERATOR + 1, MONTH_DAY_SEPERATOR - src.length()));
+		int beginYear = std::stoi(this->map.begin()->first.substr(0, YEAR_MONTH_SEPERATOR)); 
+		int srcYear = std::stoi(src.substr(0, YEAR_MONTH_SEPERATOR)); 
+
+		if (srcYear < beginYear || (srcYear == beginYear && srcMonth < beginMonth) || (srcYear == beginYear && srcMonth == beginMonth && srcDay < beginDay))
 		{
 			std::cout << "Error: too early" << std::endl;
 			return ;
