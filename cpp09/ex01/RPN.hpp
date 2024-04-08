@@ -8,13 +8,14 @@
 class RPN
 {
 	private:
-		std::stack<std::string> stack;
+		std::stack<int> stack;
 	public:
 		RPN();
 		RPN(const RPN& copy);
 		RPN& operator=(const RPN& copy);
 		~RPN();
 
+		void operate(char oper);
 		void calculate(std::string);
 };
 
