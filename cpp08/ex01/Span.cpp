@@ -56,7 +56,7 @@ void Span::addNumber(int val)
 void Span::addBatch(int range)
 {
 	std::srand(std::time(nullptr));
-	if (this->array.size() + range < this->size)
+	if (this->array.size() + range <= this->size)
 	{
 		if (range > 0)
 			for (int i = 0; i < range; i++)
