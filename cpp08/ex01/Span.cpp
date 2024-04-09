@@ -52,3 +52,13 @@ void Span::addNumber(int val)
 	else
 		throw std::invalid_argument("Error: exceeds container's range");
 }
+
+void Span::addBatch(int range)
+{
+	std::srand(std::time(nullptr));
+	if (range > 0)
+		for (int i = 0; i < range; i++)
+			this->array.push_back(std::rand());
+	else
+		throw std::invalid_argument("Error: invalid range");
+}

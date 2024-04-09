@@ -20,6 +20,7 @@ class Span
 		int shortestSpan();
 		int longestSpan();
 		void addNumber(int val);
+		void addBatch(int range);
 };
 
 #endif
