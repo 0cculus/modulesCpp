@@ -23,7 +23,7 @@ Span::~Span()
 int Span::shortestSpan()
 {
 	if (this->array.size() < 2)
-		std::invalid_argument("Error: not enough values");
+		throw std::invalid_argument("Error: not enough values");
 	std::sort(this->array.begin(), this->array.end());
 	int shortest = INT_MAX;
 	for (size_t i = 0; i < this->array.size() - 1; i++)
@@ -40,7 +40,7 @@ int Span::shortestSpan()
 int Span::longestSpan()
 {
 	if (this->array.size() < 2)
-		std::invalid_argument("Error: not enough values");
+		throw std::invalid_argument("Error: not enough values");
 	std::sort(this->array.begin(), this->array.end());
 	return (std::abs(*(this->array.end() - 1) - *(this->array.begin())));
 }
