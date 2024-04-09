@@ -1,9 +1,11 @@
 #ifndef MERGEINSERT_HPP_
 # define MERGEINSERT_HPP_
 
-# include <vector>
 # include <deque>
+# include <vector>
 # include <string>
+# include <chrono>
+# include <iostream>
 
 template <typename T>
 void insert(T& arr, int start, int range)
@@ -72,7 +74,9 @@ class PmergeMe
 		std::vector<int>& getVc();
 		std::deque<int>& getDq();
 
-		void sorting(std::string type);
+		template <typename T>
+		void show(T arr);
+		void sorting();
 };
 
 #endif

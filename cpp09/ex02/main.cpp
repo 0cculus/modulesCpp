@@ -2,13 +2,18 @@
 
 bool checkArgs(char** av)
 {
-	int i = -1;
+	int i = 0;
 	while (av[++i])
 	{
 		int j = -1;
 		while (av[i][++j])
-			if (av[i][j] < '0' || av[i][j] > '9')
+		{
+			if (!std::isdigit(av[i][j]))
+			{
+				std::cout << "Error: invalid argument, not a number" << std::endl;
 				return (true);
+			}
+		}
 	}
 	return (false);
 }
@@ -18,7 +23,7 @@ int main(int ac, char** av)
 	if (ac > 1)
 	{
 		PmergeMe algo;
-		int i = 0;
+		int i = 1;
 		if (checkArgs(av))
 			return (1);
 		while (av[i])
@@ -27,5 +32,6 @@ int main(int ac, char** av)
 			algo.getDq().push_back(atoi(av[i]));
 			i++;
 		}
+		algo.sorting();
 	}
 }
