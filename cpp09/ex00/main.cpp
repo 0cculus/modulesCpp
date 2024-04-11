@@ -69,11 +69,11 @@ void parseInput(std::string src, std::list<std::string>& list)
 					return ;
 				}
 				list.push_back(src);
+				return ;
 			}
 		}
 	}
-	else
-		list.push_back("Error: invalid input syntax\ncorrect syntax:\"YYYY-MM-DD | [0-1000]\"");
+	list.push_back("Error: invalid input syntax\ncorrect syntax:\"YYYY-MM-DD | [0-1000]\"");
 }
 
 int main(int ac, char** av)
@@ -85,7 +85,7 @@ int main(int ac, char** av)
 		std::list<std::string> list;
 		std::fstream data("./data.csv", std::ios::in);
 
-		if (data.fail())
+		if (data.fail() || data.peek() == EOF)
 		{
 			std::cout << "no data given" << std::endl;
 			return (1);
@@ -95,18 +95,24 @@ int main(int ac, char** av)
 
 		std::fstream request(av[1], std::ios::in);
 		
-		if (request.fail())
+		if (request.fail() || request.peek() == EOF)
 		{
 			std::cout << "no input given" << std::endl;
 			return (1);
 		}
-		while (std::getline(request, line))
-			parseInput(line, list);
-		std::cout << list.empty() << std::endl;
-		while (!list.empty())
+		try
 		{
-			bex.btcValueFromInput(list.front());
-			list.pop_front();
+			while (std::getline(request, line))
+				parseInput(line, list);
+			while (!list.empty())
+			{
+				bex.btcValueFromInput(list.front());
+				list.pop_front();
+			}
+		}
+		catch (std::exception& e)
+		{
+			std::cout << e.what() << std::endl;
 		}
 	}
 	else 
